@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import EmptyState from "./components/EmptyState";
 import Profile from "./components/Profile";
+import { ProfileCard } from "./components/ProfileCard";
 const array = [
     {
         title: "Title 1",
@@ -89,6 +90,18 @@ function App() {
 
     return (
         <div className="space-y-3">
+            <div className="flex gap-3">
+                <ProfileCard
+                    name="Musa"
+                    age={100}
+                    hobbies={["Swimming", "Sleeping"]}
+                />
+                <ProfileCard
+                    name="James"
+                    age={55}
+                    hobbies={["Eating", "Drinking"]}
+                />
+            </div>
             <Profile />
             <div className="flex items-center gap-3">
                 {array.map((item, index) => (
