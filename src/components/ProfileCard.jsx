@@ -1,9 +1,11 @@
-export const ProfileCard = ({ name, age, hobbies }) => {
+const ProfileCard = ({ name, age = 1000, hobbies }) => {
     return (
-        <div className="bg-white rounded-xl p-5">
+        <div className="bg-pink-50 border border-pink-600 p-3 rounded-2xl">
             <p>Name: {name}</p>
             <p>Age: {age}</p>
-            <p>Hobbies: {hobbies.join(" | ")}</p>
+            <p>Hobbies: {hobbies}</p>
         </div>
     );
 };
+
+export default ProfileCard;
