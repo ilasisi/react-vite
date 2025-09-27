@@ -3,9 +3,6 @@ import "./App.css";
 import { MessageBubble } from "./components/MessageBubble";
 import { autoReplies } from "./utils";
 
-//useRef
-//useEffect
-
 function App() {
     const endOfChatRef = useRef(null);
     const [message, setMessage] = useState("");
