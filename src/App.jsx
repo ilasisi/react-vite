@@ -1,128 +1,87 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
-import EmptyState from "./components/EmptyState";
-import Profile from "./components/Profile";
-import { ProfileCard } from "./components/ProfileCard";
-const array = [
-    {
-        title: "Title 1",
-        description: "This is first description",
-        icon: (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-info-icon lucide-info"
-            >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 16v-4" />
-                <path d="M12 8h.01" />
-            </svg>
-        ),
-    },
-    {
-        title: "Title 2",
-        description: "This is second description",
-        icon: (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-book-icon lucide-book"
-            >
-                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
-            </svg>
-        ),
-    },
-    {
-        title: "Title 3",
-        description: "This is third description",
-        icon: (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-scan-qr-code-icon lucide-scan-qr-code"
-            >
-                <path d="M17 12v4a1 1 0 0 1-1 1h-4" />
-                <path d="M17 3h2a2 2 0 0 1 2 2v2" />
-                <path d="M17 8V7" />
-                <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
-                <path d="M3 7V5a2 2 0 0 1 2-2h2" />
-                <path d="M7 17h.01" />
-                <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
-                <rect x="7" y="7" width="5" height="5" rx="1" />
-            </svg>
-        ),
-    },
-];
+import { MessageBubble } from "./components/MessageBubble";
+import { autoReplies } from "./utils";
 
 function App() {
-    const [count, setCount] = useState(0);
-    const [age, setAge] = useState(20);
+    const endOfChatRef = useRef(null);
+    const [message, setMessage] = useState("");
+    const [conversations, setConversations] = useState([
+        {
+            sender: "bot",
+            text: "Hello Champs! How may I help you today?",
+            timestamp: new Date(),
+        },
+    ]);
 
-    const handleClick = () => {
-        setCount((prev) => prev + 1);
+    const sendMessage = () => {
+        if (message.length === 0) return;
+
+        const newMessage = {
+            sender: "user",
+            text: message,
+            timestamp: new Date(),
+        };
+
+        setConversations((prev) => [...prev, newMessage]);
+        setMessage("");
+
+        setTimeout(() => {
+            const botMessage = {
+                sender: "bot",
+                text: autoReplies[
+                    Math.floor(Math.random() * autoReplies.length)
+                ],
+                timestamp: new Date(),
+            };
+
+            setConversations((prev) => [...prev, botMessage]);
+        }, 2000);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
     };
 
     useEffect(() => {
-        console.log("Count updated!", count);
-        console.log("Age updated!", age);
-    }, [count, age]);
+        endOfChatRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [conversations]);
 
     return (
-        <div className="space-y-3">
-            <div className="flex gap-3">
-                <ProfileCard
-                    name="Musa"
-                    age={100}
-                    hobbies={["Swimming", "Sleeping"]}
-                />
-                <ProfileCard
-                    name="James"
-                    age={55}
-                    hobbies={["Eating", "Drinking"]}
-                />
+        <div className="bg-white w-full h-screen sm:w-[500px] sm:h-[500px] rounded-3xl overflow-hidden flex flex-col shadow-lg shadow-gray-200 border border-gray-300">
+            <div className="bg-amber-600 px-5 py-4">
+                <h1 className="text-3xl text-white text-center">
+                    NotZero Chat Room
+                </h1>
             </div>
-            <Profile />
-            <div className="flex items-center gap-3">
-                {array.map((item, index) => (
-                    <EmptyState
+            <div className="flex-1 space-y-3 p-5 overflow-y-auto">
+                {conversations.map((conversation, index) => (
+                    <MessageBubble
                         key={index}
-                        description={item.description}
-                        title={item.title}
-                        icon={item.icon}
+                        message={conversation.text}
+                        timestamp={conversation.timestamp}
+                        sender={conversation.sender}
                     />
                 ))}
+                <div ref={endOfChatRef}></div>
             </div>
-
-            <div className="card">
-                <p>{count}</p>
-                <p>{age}</p>
-                <button onClick={handleClick}>Increment</button>
-                <button onClick={() => setAge(age + 1)}>Increment Age</button>
+            <div className="p-5 flex justify-around border-t border-gray-200 gap-3">
                 <input
-                    className="border"
-                    onChange={(event) => console.log(event.target.value)}
+                    placeholder="Start typing ..."
+                    name="message"
+                    className="flex-1 border border-gray-300 p-4 rounded-3xl"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
+                <button
+                    className="bg-blue-600 cursor-pointer text-white border-none rounded-3xl py-3 px-8"
+                    onClick={sendMessage}
+                >
+                    Send
+                </button>
             </div>
         </div>
     );
