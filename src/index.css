@@ -19,6 +19,10 @@ button {
   @apply cursor-pointer;
 }
 
+input, textarea, select {
+  @apply border px-5 py-2
+}
+
 a {
   font-weight: 500;
   color: #646cff;
