@@ -4,7 +4,9 @@ import { useFetch } from "../hooks/useFetch";
 const TVSeriesDetails = () => {
     const { id } = useParams();
 
-    const { data, isLoading, error, fetchData } = useFetch(`tv/${id}`);
+    const { data, isLoading, error, fetchData } = useFetch(
+        `tv/${id}?append_to_response=credits,keywords`
+    );
 
     if (isLoading) {
         return (

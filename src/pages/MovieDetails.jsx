@@ -11,7 +11,7 @@ const MovieDetails = () => {
         isLoading,
         error,
         fetchData,
-    } = useFetch(`movie/${id}?append_to_response=casts,keywords`);
+    } = useFetch(`movie/${id}?append_to_response=credits,keywords`);
 
     if (isLoading) {
         return (
