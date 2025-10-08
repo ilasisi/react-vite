@@ -1,6 +1,7 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import { getImageLink } from "../utils";
+import { MovieDetailsHeader } from "../components/MovieDetailsHeader";
 
 const MovieDetails = () => {
     const { id } = useParams();
@@ -9,11 +10,12 @@ const MovieDetails = () => {
         data: movie,
         isLoading,
         error,
+        fetchData,
     } = useFetch(`movie/${id}?append_to_response=casts,keywords`);
 
     if (isLoading) {
         return (
-            <div>
+            <div className="flex justify-center items-center h-dvh">
                 <p>Loading ...</p>
             </div>
         );
@@ -21,56 +23,25 @@ const MovieDetails = () => {
 
     if (error) {
         return (
-            <div>
-                <p>{error}</p>
+            <div className="flex justify-center items-center h-dvh">
+                <div className="flex flex-col items-center">
+                    <p className="mb-6">{error}</p>
+                    <div>
+                        <button
+                            onClick={fetchData}
+                            className="bg-blue-600 px-3 text-white text-sm py-1 rounded-full"
+                        >
+                            Refetch
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
 
     return (
         <div>
-            <div
-                style={{
-                    backgroundImage: `url(${getImageLink(
-                        movie.backdrop_path
-                    )})`,
-                }}
-            >
-                <div className="bg-black/80">
-                    <div className="flex p-5 gap-8">
-                        <img
-                            src={getImageLink(movie.poster_path)}
-                            className="w-60 border-4 border-white h-40"
-                        />
-                        <div className="font-bold text-white space-y-5">
-                            <p className="text-2xl">{movie.original_title}</p>
-                            <div className="space-y-2">
-                                <p className="text-sm text-neutral-300">
-                                    Overview
-                                </p>
-                                <p className="text-lg text-neutral-200">
-                                    {movie.overview}
-                                </p>
-                            </div>
-                            <div className="space-y-2">
-                                <p className="text-sm text-neutral-300">
-                                    Genre(s)
-                                </p>
-                                <div className="inline-flex gap-3">
-                                    {movie.genres?.map((genre, index) => (
-                                        <span
-                                            className="border rounded-2xl text-sm  px-3 py-1 border-neutral-300"
-                                            key={index}
-                                        >
-                                            {genre.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <MovieDetailsHeader movie={movie} />
         </div>
     );
 };

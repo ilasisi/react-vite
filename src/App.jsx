@@ -5,22 +5,21 @@ import NotFound from "./pages/NotFound";
 import MovieDetails from "./pages/MovieDetails";
 import { TVSeries } from "./pages/TVSeries";
 import TVSeriesDetails from "./pages/TVSeriesDetails";
-import { Header } from "./components/Header";
+import MainLayout from "./pages/MainLayout";
 
 function App() {
     return (
-        <div>
-            <BrowserRouter>
-                <Header />
-                <Routes>
+        <BrowserRouter>
+            <Routes>
+                <Route element={<MainLayout />}>
                     <Route index element={<Movies />} />
                     <Route path="/series" element={<TVSeries />} />
-                    <Route path="/movies/:id" element={<MovieDetails />} />
-                    <Route path="/series/:id" element={<TVSeriesDetails />} />
-                    <Route path="/*" element={<NotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </div>
+                </Route>
+                <Route path="/movies/:id" element={<MovieDetails />} />
+                <Route path="/series/:id" element={<TVSeriesDetails />} />
+                <Route path="/*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

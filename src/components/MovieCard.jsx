@@ -14,7 +14,7 @@ export const MovieCard = ({ movie }) => {
                         {movie.original_title}
                     </p>
                     <div className="flex justify-between gap-3 items-center">
-                        <p className="text-sm">
+                        <p className="text-neutral-600">
                             {new Date(movie.release_date).toLocaleDateString(
                                 "en-US",
                                 {
@@ -24,7 +24,7 @@ export const MovieCard = ({ movie }) => {
                                 }
                             )}
                         </p>
-                        <span className="w-8 h-8 bg-green-600 text-white text-xs font-bold rounded-full flex justify-center items-center">
+                        <span className="w-8 h-8 bg-green-600 text-white font-bold rounded-full flex justify-center items-center">
                             {Math.round(movie.vote_average * 10)}
                         </span>
                     </div>
