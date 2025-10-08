@@ -15,14 +15,14 @@ export const CrewList = ({ crews }) => {
 
 const CrewMemberCard = ({ crew }) => {
     return (
-        <div className="bg-white border border-neutral-300 min-w-56 max-w-56 rounded-xl overflow-hidden">
+        <div className="mb-3 flex flex-col bg-white border border-neutral-300 min-w-56 max-w-56 rounded-xl overflow-hidden">
             <img
                 src={
                     crew.profile_path
                         ? getImageLink(crew.profile_path)
-                        : "https://picsum.photos/200/300"
+                        : "/avatar.jpg"
                 }
-                className="w-full"
+                className="w-full flex-1"
             />
             <div className="p-3 text-center">
                 <p className="font-bold line-clamp-1">{crew.original_name}</p>

@@ -4,6 +4,8 @@ import { PlayIcon } from "./icons/PlayIcon";
 export const TrailerButton = ({ youtubeId }) => {
     const [openTrailer, setOpenTrailer] = useState(false);
 
+    if (!youtubeId) return;
+
     return (
         <div className="relative">
             <button

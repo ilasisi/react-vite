@@ -45,8 +45,8 @@ const MovieDetails = () => {
         <div>
             <MovieDetailsHeader movie={movie} />
             <div className="p-5 mx-auto max-w-7xl space-y-6">
-                <CrewList crews={movie?.credits?.crew ?? []} />
                 <CastList casts={movie?.credits?.cast ?? []} />
+                <CrewList crews={movie?.credits?.crew ?? []} />
             </div>
         </div>
     );
