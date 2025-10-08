@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import { getImageLink } from "../utils";
 import { MovieDetailsHeader } from "../components/MovieDetailsHeader";
+import { CrewList } from "../components/CrewList";
+import { CastList } from "../components/CastList";
 
 const MovieDetails = () => {
     const { id } = useParams();
@@ -11,7 +13,7 @@ const MovieDetails = () => {
         isLoading,
         error,
         fetchData,
-    } = useFetch(`movie/${id}?append_to_response=credits,keywords`);
+    } = useFetch(`movie/${id}?append_to_response=credits,keywords,videos`);
 
     if (isLoading) {
         return (
@@ -42,6 +44,10 @@ const MovieDetails = () => {
     return (
         <div>
             <MovieDetailsHeader movie={movie} />
+            <div className="p-5 mx-auto max-w-7xl space-y-6">
+                <CrewList crews={movie?.credits?.crew ?? []} />
+                <CastList casts={movie?.credits?.cast ?? []} />
+            </div>
         </div>
     );
 };

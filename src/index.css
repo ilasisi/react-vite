@@ -3,3 +3,7 @@
 a.active {
   @apply text-red-600 font-bold
 }
+
+button {
+  @apply cursor-pointer;
+}
