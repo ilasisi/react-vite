@@ -6,10 +6,15 @@ import Contact from "./pages/Contact";
 import PostDetails from "./pages/PostDetails";
 import CompanyHeader from "./pages/CompanyHeader";
 import NotFound from "./pages/NotFound";
+import { ThemeSwitcher } from "./components/ThemeSwitcher";
+import { useContext } from "react";
+import { ThemeContext } from "./contexts/ThemeProvider";
 
 function App() {
+    const { theme } = useContext(ThemeContext);
+
     return (
-        <div>
+        <div className={theme === "dark" ? "bg-slate-900" : "bg-slate-200"}>
             <BrowserRouter>
                 <nav className="mb-6">
                     <ul className="flex items-center justify-center space-x-3">
@@ -21,6 +26,9 @@ function App() {
                         </li>
                         <li>
                             <NavLink to="/company/contact">Contact Us</NavLink>
+                        </li>
+                        <li>
+                            <ThemeSwitcher />
                         </li>
                     </ul>
                 </nav>

@@ -1,5 +1,13 @@
+import { GreatGrandParent } from "../components/GreatGrandParent";
+import { NameContext } from "../contexts/nameContext";
+
 function About() {
-    return <div>This is about us page</div>;
+    return (
+        <NameContext value={"Some value"}>
+            This is about us page
+            <GreatGrandParent />
+        </NameContext>
+    );
 }
 
 export default About;
