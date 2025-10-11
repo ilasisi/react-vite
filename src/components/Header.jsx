@@ -1,9 +1,10 @@
 import { NavLink } from "react-router";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 export const Header = () => {
     return (
-        <div className="mb-6 sm:p-8 max-w-7xl mx-auto">
-            <nav className="bg-neutral-300 px-8 py-3 sm:rounded-full w-fit mx-auto">
+        <div className="mb-6 flex justify-between items-center gap-3 sm:p-8 max-w-7xl mx-auto">
+            <nav className="bg-neutral-300 px-8 py-3 sm:rounded-full w-fit mx-auto dark:bg-slate-700">
                 <ul className="flex items-center justify-center space-x-3">
                     <li>
                         <NavLink to="/">Movies</NavLink>
@@ -13,6 +14,7 @@ export const Header = () => {
                     </li>
                 </ul>
             </nav>
+            <ThemeSwitcher />
         </div>
     );
 };

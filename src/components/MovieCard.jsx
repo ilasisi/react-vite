@@ -4,7 +4,7 @@ import { getImageLink } from "../utils";
 export const MovieCard = ({ movie }) => {
     return (
         <Link to={`/movies/${movie.id}`}>
-            <div className="bg-white rounded-2xl group overflow-hidden border border-neutral-300 hover:shadow">
+            <div className="bg-white rounded-2xl group overflow-hidden border border-neutral-300 hover:shadow dark:bg-slate-800 dark:border-slate-700">
                 <img
                     src={getImageLink(movie.poster_path)}
                     className="h-96 w-full"
@@ -14,7 +14,7 @@ export const MovieCard = ({ movie }) => {
                         {movie.original_title}
                     </p>
                     <div className="flex justify-between gap-3 items-center">
-                        <p className="text-neutral-600">
+                        <p className="text-neutral-600 dark:text-neutral-300">
                             {new Date(movie.release_date).toLocaleDateString(
                                 "en-US",
                                 {

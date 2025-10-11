@@ -15,7 +15,7 @@ export const CastList = ({ casts }) => {
 
 const CastCard = ({ cast }) => {
     return (
-        <div className="mb-3 flex flex-col bg-white border border-neutral-300 min-w-56 max-w-56 rounded-xl overflow-hidden">
+        <div className="mb-3 flex flex-col bg-white border border-neutral-300 min-w-56 max-w-56 rounded-xl overflow-hidden dark:bg-slate-800 dark:border-slate-700">
             <img
                 src={
                     cast.profile_path
@@ -26,7 +26,7 @@ const CastCard = ({ cast }) => {
             />
             <div className="p-3 text-center">
                 <p className="font-bold line-clamp-1">{cast.original_name}</p>
-                <p className="text-sm text-neutral-500 line-clamp-1">
+                <p className="text-sm text-neutral-500 line-clamp-1 dark:text-neutral-300">
                     {cast.character}
                 </p>
             </div>
